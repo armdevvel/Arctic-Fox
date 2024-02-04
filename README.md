@@ -1,4 +1,9 @@
-# Arctic Fox Web Browser
+# Arctic Fox Web Browser - POC for Windows on ARM32
+
+This is a ***PROOF OF CONCEPT***. It DOES not work right now. I **am not**, and ***will not*** promise a working date, when I will update it, etc. It's open so anybody can contribute. Currently, I'm uploading user generated files such as configure for the simple reason that I don't know autoconf well enough to make the needed changes in the right files. To get on the path of building: copy `mozcfg-armv7-w64-mingw32` to `.mozconfig`, then run `./mach build`. It WILL error out.
+
+# Original README
+## Arctic Fox Web Browser
 
 Arctic Fox started as a forked and rebranded Pale Moon 27.9.4 and retains its _classic_ interface. Many fixes and enhancements have been imported from Firefox and TenFourFox.
 

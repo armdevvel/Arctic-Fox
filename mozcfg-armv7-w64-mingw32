@@ -1,0 +1,45 @@
+export CROSS_COMPILE=1
+
+ac_add_options --target=armv7-w64-mingw32
+mk_add_options MOZ_OBJDIR=@TOPSRCDIR@/../armv7-arctic-fox
+mk_add_options AUTOCLOBBER=1
+
+ac_add_options --with-branding=browser/branding/arcticfox
+ac_add_options --disable-jit
+ac_add_options --disable-crashreporter
+ac_add_options --disable-maintenance-service
+ac_add_options --disable-sandbox
+ac_add_options --disable-webrtc
+ac_add_options --enable-application=browser
+ac_add_options --enable-optimize
+ac_add_options --enable-strip
+
+ac_add_options --disable-accessibility
+ac_add_options --disable-nspr-build
+ac_add_options --enable-system-ffi
+ac_add_options --enable-system-pixman
+ac_add_options --with-system-bz2
+ac_add_options --with-system-icu
+ac_add_options --with-system-zlib
+
+mk_add_options MOZ_MAKE_FLAGS=-j4
+
+if test -n "$MOZ_BUILD_APP" ; then
+  HOST_CC=$CC
+  HOST_CXX=$CXX
+
+  NATIVE_CPU=`$topsrcdir/build/autoconf/config.guess | cut -f1 -d-`
+
+  CC="armv7-w64-mingw32-clang"
+  CXX="armv7-w64-mingw32-clang++"
+
+  RANLIB=armv7-w64-mingw32-ranlib
+  AR=armv7-w64-mingw32-ar
+  AS=$CC
+  LD=armv7-w64-mingw32-ld
+  STRIP="armv7-w64-mingw32-strip"
+  OTOOL="otool"
+
+  export CROSS_COMPILE=1
+  export CC CXX HOST_CC HOST_CXX RANLIB AR AS LD STRIP OTOOL
+fi
