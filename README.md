@@ -1,6 +1,6 @@
 # Arctic Fox Web Browser - POC for Windows on ARM32
 
-This is a ***PROOF OF CONCEPT***. It DOES not work right now. I **am not**, and ***will not*** promise a working date, when I will update it, etc. It's open so anybody can contribute. Currently, I'm uploading user generated files such as configure for the simple reason that I don't know autoconf well enough to make the needed changes in the right files. To get on the path of building: copy `mozcfg-armv7-w64-mingw32` to `.mozconfig`, then run `./mach build`. It WILL error out.
+This is a ***PROOF OF CONCEPT***. It DOES not work right now. I **am not**, and ***will not*** promise a working date, when I will update it, etc. It's open so anybody can contribute. Currently, I'm uploading user generated files such as configure for the simple reason that I don't know autoconf well enough to make the needed changes in the right files. To get on the path of building: copy `mozcfg-armv7-w64-mingw32` to `.mozconfig`, then run `./mach build`. It WILL error out. Also, this ONLY targets armv7-w64-mingw32. Other platforms are NOT guaranteed to continue to build! The point of this being in its own repository is so it builds for the specific target!
 
 # Original README
 ## Arctic Fox Web Browser

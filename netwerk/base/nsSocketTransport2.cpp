@@ -3021,10 +3021,10 @@ nsSocketTransport::PRFileDescAutoLock::SetKeepaliveVals(bool aEnabled,
 #if defined(XP_WIN)
     // Windows allows idle time and retry interval to be set; NOT ping count.
     struct tcp_keepalive keepalive_vals = {
-        (int)aEnabled,
+        static_cast<u_long>((int)aEnabled),
         // Windows uses msec.
-        aIdleTime * 1000,
-        aRetryInterval * 1000
+        static_cast<u_long>(aIdleTime * 1000),
+        static_cast<u_long>(aRetryInterval * 1000)
     };
     DWORD bytes_returned;
     int err = WSAIoctl(sock, SIO_KEEPALIVE_VALS, &keepalive_vals,

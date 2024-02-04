@@ -67,7 +67,8 @@ elif CONFIG['OS_TARGET'] == 'WINNT':
     )
     if CONFIG['CPU_ARCH'] == 'x86_64':
         DEFINES['_AMD64_'] = True
-    else:
+
+    if CONFIG['CPU_ARCH'] == 'i686':
         DEFINES['_X86_'] = True
 else:
     error('Not a supported OS_TARGET for NSPR in moz.build: "%s". Use --with-system-nspr' % CONFIG['OS_TARGET'])
