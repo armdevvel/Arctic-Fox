@@ -22,7 +22,8 @@ if CONFIG['TARGET_CPU'] == 'x86_64':
             'xptcinvoke_asm_x86_64.asm',
             'xptcstubs_asm_x86_64.asm'
         ]
-else:
+
+if CONFIG['TARGET_CPU'] == 'i686':
     if CONFIG['GNU_CXX']:
         SOURCES += [
             'xptcinvoke_x86_gnu.cpp',
@@ -34,6 +35,11 @@ else:
             'xptcstubs.cpp',
         ]
         SOURCES['xptcinvoke.cpp'].no_pgo = True
+else:
+    SOURCES += [
+        'xptcinvoke_arm.cpp',
+        'xptcstubs_arm.cpp'
+    ]
 
 FINAL_LIBRARY = 'xul'
 

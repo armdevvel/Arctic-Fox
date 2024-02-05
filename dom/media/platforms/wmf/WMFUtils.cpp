@@ -188,7 +188,7 @@ LoadDLLs()
 #define ENSURE_FUNCTION_PTR_HELPER(FunctionType, FunctionName, DLL) \
   static FunctionType FunctionName##Ptr = nullptr; \
   if (!FunctionName##Ptr) { \
-    FunctionName##Ptr = (FunctionType) GetProcAddress(GetModuleHandleW(L#DLL), #FunctionName); \
+    FunctionName##Ptr = (FunctionType) GetProcAddress(GetModuleHandleA(#DLL), #FunctionName); \
     if (!FunctionName##Ptr) { \
       NS_WARNING("Failed to get GetProcAddress of " #FunctionName " from " #DLL); \
       return E_FAIL; \
