@@ -265,7 +265,7 @@ public:
     int i;
     byteptr_t p;
     for (i = 0, p = mHookPage; i < mCurHooks; i++, p += kHookSize) {
-#if defined(_M_IX86)
+#if defined(_M_IX86) || defined(_ARM_)
       size_t nBytes = 1 + sizeof(intptr_t);
 #elif defined(_M_X64)
       size_t nBytes = 2 + sizeof(intptr_t);
@@ -282,7 +282,7 @@ public:
       // Remove the hook by making the original function jump directly
       // in the trampoline.
       intptr_t dest = (intptr_t)(p + sizeof(void*));
-#if defined(_M_IX86)
+#if defined(_M_IX86) || defined(_ARM_)
       // Ensure the JMP from CreateTrampoline is where we expect it to be.
       if (origBytes[0] != 0xE9)
         continue;
@@ -448,7 +448,7 @@ protected:
 
     int nBytes = 0;
 
-#if defined(_M_IX86)
+#if defined(_M_IX86) || defined(_ARM_)
     int pJmp32 = -1;
     while (nBytes < 5) {
       // Understand some simple instructions that might be found in a
