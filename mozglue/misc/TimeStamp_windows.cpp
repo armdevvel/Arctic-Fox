@@ -412,37 +412,7 @@ BaseTimeDurationPlatformUtils::ResolutionInTicks()
 static bool
 HasStableTSC()
 {
-  union
-  {
-    int regs[4];
-    struct
-    {
-      int nIds;
-      char cpuString[12];
-    };
-  } cpuInfo;
-
-  __cpuid(cpuInfo.regs, 0);
-  // Only allow Intel CPUs for now
-  // The order of the registers is reg[1], reg[3], reg[2].  We just adjust the
-  // string so that we can compare in one go.
-  if (_strnicmp(cpuInfo.cpuString, "GenuntelineI",
-                sizeof(cpuInfo.cpuString))) {
-    return false;
-  }
-
-  int regs[4];
-
-  // detect if the Advanced Power Management feature is supported
-  __cpuid(regs, 0x80000000);
-  if (regs[0] < 0x80000007) {
-    return false;
-  }
-
-  __cpuid(regs, 0x80000007);
-  // if bit 8 is set than TSC will run at a constant rate
-  // in all ACPI P-state, C-states and T-states
-  return regs[3] & (1 << 8);
+  return false;
 }
 
 MFBT_API void

@@ -451,7 +451,14 @@ protected:
   Selection mSelection;
   // mSelection stores the latest selection data only when sHasFocus it true.
   // Therefore, if sHasFocus is false, temporary instance should be used.
-  Selection GetSelection() { return sHasFocus ? mSelection : Selection(); }
+  Selection& GetSelection() {
+    if(sHasFocus)
+      return mSelection;
+
+    static Selection sTempSelection;
+    sTempSelection.Clear();
+    return sTempSelection;
+  }
 
   bool mIsComposing;
   bool mIsComposingOnPlugin;
