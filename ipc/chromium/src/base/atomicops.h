@@ -39,9 +39,6 @@ namespace subtle {
 #define __w64
 #endif
 typedef __w64 int32_t Atomic32;
-#ifdef ARCH_CPU_64_BITS
-typedef int64_t Atomic64;
-#endif
 
 // Use AtomicWord for a machine-sized pointer.  It will use the Atomic32 or
 // Atomic64 routines below, depending on your architecture.
@@ -96,7 +93,6 @@ Atomic32 Release_CompareAndSwap(volatile Atomic32* ptr,
                                 Atomic32 old_value,
                                 Atomic32 new_value);
 
-void MemoryBarrier();
 void NoBarrier_Store(volatile Atomic32* ptr, Atomic32 value);
 void Acquire_Store(volatile Atomic32* ptr, Atomic32 value);
 void Release_Store(volatile Atomic32* ptr, Atomic32 value);
@@ -132,18 +128,6 @@ Atomic64 Release_Load(volatile const Atomic64* ptr);
 }  // namespace base
 
 // Include our platform specific implementation.
-#if defined(OS_WIN) && defined(ARCH_CPU_X86_FAMILY)
-#include "base/atomicops_internals_x86_msvc.h"
-#elif defined(OS_MACOSX) && defined(ARCH_CPU_X86_FAMILY)
-#include "base/atomicops_internals_x86_macosx.h"
-#elif defined(COMPILER_GCC) && defined(ARCH_CPU_X86_FAMILY)
-#include "base/atomicops_internals_x86_gcc.h"
-#elif defined(COMPILER_GCC) && defined(ARCH_CPU_ARM_FAMILY)
 #include "base/atomicops_internals_arm_gcc.h"
-#elif defined(COMPILER_GCC) && defined(ARCH_CPU_MIPS)
-#include "base/atomicops_internals_mips_gcc.h"
-#else
-#include "base/atomicops_internals_mutex.h"
-#endif
 
 #endif  // BASE_ATOMICOPS_H_

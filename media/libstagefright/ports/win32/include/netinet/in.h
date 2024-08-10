@@ -6,8 +6,6 @@
 
 #include <stdint.h>
 
-#if defined(_M_IX86) || defined(_M_AMD64)
-
 static uint32_t
 ntohl(uint32_t x)
 {
@@ -31,9 +29,5 @@ htons(uint16_t x)
 {
   return x << 8 | x >> 8;
 }
-
-#else
-#error Unsupported architecture
-#endif
 
 #endif

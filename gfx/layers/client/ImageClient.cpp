@@ -331,7 +331,7 @@ ImageClientBridge::UpdateImage(ImageContainer* aContainer, uint32_t aContentFlag
     return true;
   }
   mAsyncContainerID = aContainer->GetAsyncContainerID();
-  static_cast<ShadowLayerForwarder*>(GetForwarder())->AttachAsyncCompositable(mAsyncContainerID, mLayer);
+  static_cast<ShadowLayerForwarder*>(GetForwarder())->AttachAsyncCompositable(mAsyncContainerID, (ShadowableLayer *)mLayer);
   return true;
 }
 

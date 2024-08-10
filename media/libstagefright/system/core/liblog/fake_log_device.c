@@ -31,13 +31,11 @@
 #include <pthread.h>
 #endif
 
-#ifdef _MSC_VER
 #include <io.h>
 #include <process.h>
 #if _MSC_VER < 1900
 #include <nspr/prprf.h>
 #define snprintf PR_snprintf
-#endif
 
 /* We don't want to indent large blocks because it causes unnecessary merge
  * conflicts */
@@ -397,7 +395,7 @@ static void showLog(LogState *state,
 
     priChar = getPriorityString(logPrio)[0];
     when = time(NULL);
-    pid = tid = getpid();       // find gettid()?
+    pid = tid = _getpid();       // find gettid()?
 
     /*
      * Get the current date/time in pretty form

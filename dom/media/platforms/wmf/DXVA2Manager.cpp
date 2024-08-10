@@ -18,14 +18,6 @@
 #include "DriverCrashGuard.h"
 #include "nsPrintfCString.h"
 
-const CLSID CLSID_VideoProcessorMFT =
-{
-  0x88753b26,
-  0x5b24,
-  0x49bd,
-  { 0xb2, 0xe7, 0xc, 0x44, 0x5c, 0x78, 0xc9, 0x82 }
-};
-
 const GUID MF_XVP_PLAYBACK_MODE =
 {
   0x3c5d293f,
