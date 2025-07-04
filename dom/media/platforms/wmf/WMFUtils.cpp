@@ -4,6 +4,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
+
 #include "WMFUtils.h"
 #include <stdint.h>
 #include "mozilla/ArrayUtils.h"
@@ -14,14 +15,32 @@
 #include "nsWindowsHelpers.h"
 #include "mozilla/CheckedInt.h"
 #include "VideoUtils.h"
-#include <initguid.h>
 #include "nsTArray.h"
 
-#ifdef WMF_MUST_DEFINE_AAC_MFT_CLSID
+#include <windows.h>
+#define INITGUID
+#include <guiddef.h>
+
+#pragma comment(lib, "mfuuid.lib")
+#pragma comment(lib, "wmcodecdspuuid")
+#pragma comment(lib, "mfplat.lib")
+
+#ifndef INITGUID
+#error "INITGUID is not defined"
+#endif
+
+#ifndef GUID_NULL
+#error "GUID_NULL is not defined"
+#endif
+
+
+//#ifdef WMF_MUST_DEFINE_AAC_MFT_CLSID
 // Some SDK versions don't define the AAC decoder CLSID.
 // {32D186A7-218F-4C75-8876-DD77273A8999}
-DEFINE_GUID(CLSID_CMSAACDecMFT, 0x32D186A7, 0x218F, 0x4C75, 0x88, 0x76, 0xDD, 0x77, 0x27, 0x3A, 0x89, 0x99);
-#endif
+//DEFINE_GUID(CLSID_CMSAACDecMFT, 0x32D186A7, 0x218F, 0x4C75, 0x88, 0x76, 0xDD, 0x77, 0x27, 0x3A, 0x89, 0x99);
+//#endif
+
+const GUID GUID_NULL = {0x00000000,0x0000,0x0000,{0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00}};
 
 namespace mozilla {
 

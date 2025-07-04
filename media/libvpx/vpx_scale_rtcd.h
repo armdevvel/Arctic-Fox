@@ -19,7 +19,7 @@
 #ifdef _MSC_VER
 #include "vpx_scale_rtcd_x86-win32-vs12.h"
 #else
-#include "vpx_scale_rtcd_x86-win32-gcc.h"
+#include "vpx_scale_rtcd_armv7-win64-gcc.h"
 #endif
 
 #elif defined(__APPLE__) && defined(__x86_64__)

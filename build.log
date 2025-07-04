@@ -1,0 +1,125 @@
+ 0:00.32 /usr/bin/gmake -f client.mk MOZ_PARALLEL_BUILD=4
+ 0:02.44 /usr/bin/gmake -f /home/ricol03/Arctic-Fox/client.mk realbuild CREATE_MOZCONFIG_JSON=
+ 0:02.44 gmake[1]: Entering directory '/home/ricol03/Arctic-Fox'
+ 0:02.44 Adding client.mk options from /home/ricol03/Arctic-Fox/.mozconfig:
+ 0:02.44     CONFIG_GUESS=armv7-w64-mingw32
+ 0:02.44     AUTOCLOBBER=1
+ 0:02.44     MOZ_MAKE_FLAGS=-j4
+ 0:02.44     MOZ_OBJDIR=/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox
+ 0:02.44     OBJDIR=/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox
+ 0:02.44     FOUND_MOZCONFIG=/home/ricol03/Arctic-Fox/.mozconfig
+ 0:02.44 /usr/bin/gmake -j4 -C /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox
+ 0:02.44 gmake[2]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox'
+ 0:02.44 gmake[3]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox'
+ 0:02.44 /usr/bin/gmake recurse_pre-export
+ 0:02.44 gmake[4]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox'
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.process_install_manifest dist/branding _build_manifests/install/dist_branding
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.process_install_manifest dist/idl _build_manifests/install/dist_idl
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.process_install_manifest dist/include _build_manifests/install/dist_include
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.process_install_manifest dist/public _build_manifests/install/dist_public
+ 0:02.44 Elapsed: 0.00s; From dist/public: Kept 0 existing; Added/updated 0; Removed 0 files and 0 directories.
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.process_install_manifest dist/private _build_manifests/install/dist_private
+ 0:02.44 Elapsed: 0.00s; From dist/branding: Kept 10 existing; Added/updated 0; Removed 0 files and 0 directories.
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.process_install_manifest dist/sdk _build_manifests/install/dist_sdk
+ 0:02.44 Elapsed: 0.05s; From dist/idl: Kept 1102 existing; Added/updated 0; Removed 0 files and 0 directories.
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.process_install_manifest dist/xpi-stage _build_manifests/install/dist_xpi-stage
+ 0:02.44 Elapsed: 0.01s; From dist/private: Kept 0 existing; Added/updated 0; Removed 159 files and 2 directories.
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.process_install_manifest _tests _build_manifests/install/_tests
+ 0:02.44 Elapsed: 0.00s; From dist/sdk: Kept 0 existing; Added/updated 0; Removed 17 files and 3 directories.
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.process_install_manifest dist/bin _build_manifests/install/dist_bin
+ 0:02.44 Elapsed: 0.00s; From dist/xpi-stage: Kept 2 existing; Added/updated 0; Removed 0 files and 0 directories.
+ 0:02.44 Elapsed: 0.20s; From dist/include: Kept 4580 existing; Added/updated 0; Removed 107 files and 2 directories.
+ 0:02.44 Elapsed: 0.14s; From dist/bin: Kept 1673 existing; Added/updated 0; Removed 14 files and 5 directories.
+ 0:02.44 Elapsed: 0.79s; From _tests: Kept 11293 existing; Added/updated 1; Removed 1 files and 0 directories.
+ 0:02.44 gmake[4]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox'
+ 0:02.44 gmake[3]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox'
+ 0:02.44 gmake[3]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox'
+ 0:02.44 buildid.h
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.file_generate /home/ricol03/Arctic-Fox/build/variables.py buildid_header buildid.h .deps/buildid.h.pp
+ 0:02.44 source-repo.h
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.file_generate /home/ricol03/Arctic-Fox/build/variables.py source_repo_header source-repo.h .deps/source-repo.h.pp
+ 0:02.44 ./config/nsinstall -R -m 644 'buildid.h' 'dist/include'
+ 0:02.44 ./config/nsinstall -R -m 644 'mozilla-config.h' 'dist/include'
+ 0:02.44 ./config/nsinstall -R -m 644 'source-repo.h' 'dist/include'
+ 0:02.44 /usr/bin/gmake recurse_export
+ 0:02.44 gmake[4]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox'
+ 0:02.44 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config'
+ 0:02.44 ../config/nsinstall -R -m 755 'nsinstall' '../dist/bin'
+ 0:02.44 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config'
+ 0:02.44 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config'
+ 0:02.44 gmake[5]: Nothing to be done for 'export'.
+ 0:02.44 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config'
+ 0:02.44 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/probes'
+ 0:02.44 gmake[5]: Nothing to be done for 'export'.
+ 0:02.44 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/probes'
+ 0:02.44 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/build'
+ 0:02.44 rm -f '../dist/bin/application.ini'
+ 0:02.44 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.preprocessor --depend .deps/application.ini.pp  -DNDEBUG=1 -DTRIMMED=1 -DGRE_MILESTONE=43.1.0 -DMOZ_APP_VERSION=43.1 -DMOZ_APP_BASENAME=ArcticFox -DMOZ_APP_VENDOR=org.multix '-DMOZ_APP_ID={8de7fcbb-c55c-4fbe-bfc5-fc555c87dbc4}' -DMAR_CHANNEL_ID=palemoon-release -DACCEPTED_MAR_CHANNEL_IDS=palemoon-release -DMOZ_APP_REMOTINGNAME=arcticfox '-DMOZ_APP_DISPLAYNAME=Arctic Fox' -DMOZ_BUILD_APP_IS_BROWSER -DMOZ_PROFILE_MIGRATOR -DMOZ_APP_STATIC_INI -DTOPOBJDIR=/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox -DCROSS_COMPILE=1 -DSTRSAFE_NO_DEPRECATE=1 -DWINVER=0x502 -D_WIN32_WINNT=0x502 -D_WIN32_IE=0x0603 -DMOZ_WINSDK_TARGETVER=0x06030000 -DMOZ_NTDDI_WIN7=0x06010000 -DMOZ_WINSDK_MAXVER=0x0A000000 -DX_DISPLAY_MISSING=1 -DMOZ_THUMB2=1 -DMOZILLA_VERSION='"43.1.0"' -DMOZILLA_VERSION_U=43.1.0 -DMOZILLA_UAVERSION='"43.1"' -DMOZILLA_UAVERSION_U=43.1 -DMOZILLA_COMPATVERSION='"52.9"' -DMOZILLA_COMPATVERSION_U=52.9 -DHAVE_SNPRINTF=1 -D_WINDOWS=1 -DWIN32=1 -DXP_WIN=1 -DXP_WIN32=1 -DHW_THREADS=1 -DSTDC_HEADERS=1 -DWIN32_LEAN_AND_MEAN=1 -DNOMINMAX=1 -DNO_X11=1 -D_CPU_ARCH_NOT_DEFINED=1 -DD_INO=d_ino -DMOZ_DEBUG_SYMBOLS=1 -DSTDC_HEADERS=1 -DHAVE_DIRENT_H=1 -DHAVE_GETOPT_H=1 -DHAVE_MEMORY_H=1 -DHAVE_UNISTD_H=1 -DHAVE_MALLOC_H=1 -DHAVE_IO_H=1 -DHAVE_SYS_TYPES_H=1 -DNO_X11=1 -DVA_COPY=va_copy -DHAVE_VA_COPY=1 -DMALLOC_H='<malloc.h>' -DHAVE_MALLOC_H=1 -DMALLOC_USABLE_SIZE_CONST_PTR=const -DTARGET_XPCOM_ABI='"arm-oabi-gcc3"' -DRELEASE_BUILD=1 -DNS_ENABLE_TSF=1 -DMOZ_UPDATE_CHANNEL=default -DMOZ_PHOENIX=1 -DMOZ_BUILD_APP=browser -DMOZ_PDF_PRINTING=1 -DMOZ_INSTRUMENT_EVENT_LOOP=1 -DNS_PRINTING=1 -DNS_PRINT_PREVIEW=1 -DMOZ_DISTRIBUTION_ID='"org.mozilla"' -DMOZ_SAMPLE_TYPE_S16=1 -DMOZ_WEBSPEECH=1 -DMOZ_WEBSPEECH_TEST_BACKEND=1 -DMOZ_JXR=1 -DATTRIBUTE_ALIGNED_MAX=64 -DMOZ_DIRECTSHOW=1 -DMOZ_WMF=1 -DMOZ_FFMPEG=1 -DMOZ_FMP4=1 -DMOZ_MEDIA_NAVIGATOR=1 -DMOZ_WEBP=1 -DMOZ_VPX_NO_MEM_REPORTING=1 -DMOZ_TREMOR=1 -DMOZ_PERMISSIONS=1 -DENABLE_SYSTEM_EXTENSION_DIRS=1 -DMOZ_WEBGL_CONFORMANT=1 -DMOZ_GAMEPAD=1 -DMOZ_CRASHREPORTER_ENABLE_PERCENT=100 -DMOZ_ENABLE_SIGNMAR=1 -DMOZ_DISABLE_PARENTAL_CONTROLS=1 -DMOZ_FEEDS=1 -DGL_PROVIDER_=1 -DMOZ_LOGGING=1 -DFORCE_PR_LOG=1 -DMOZ_BROWSER_STATUSBAR=1 -DMOZ_ACTIVITIES=1 -DMOZ_SECUREELEMENT=1 -DJS_DEFAULT_JITREPORT_GRANULARITY=3 -DMOZ_OMNIJAR=1 -DMOZ_USER_DIR='"Mozilla"' -DHAVE_STDINT_H=1 -DHAVE_INTTYPES_H=1 -DMOZ_TREE_CAIRO=1 -DHAVE_UINT64_T=1 -DMOZ_ENABLE_SKIA=1 -DUSE_SKIA=1 -DUSE_SKIA_GPU=1 -DMOZ_XUL=1 -DMOZ_PROFILELOCKING=1 -DENABLE_MARIONETTE=1 -DBUILD_CTYPES=1 -DMOZ_PLACES=1 -DMOZ_SOCIAL=1 -DMOZ_SERVICES_COMMON=1 -DMOZ_SERVICES_CRYPTO=1 -DMOZ_SERVICES_SYNC=1 -DMOZ_JSDOWNLOADS=1 -DMOZ_MACBUNDLE_ID='org.mozilla.arctic fox' -DMOZ_B2G_VERSION='"1.0.0"' -DMOZ_B2G_OS_NAME='""' -DMOZ_APP_UA_NAME='""' -DMOZ_APP_UA_VERSION='"43.1"' -DFIREFOX_VERSION=43.1 -DMOZ_UA_BUILDID='""' -DMOZ_TELEMETRY_DISPLAY_REV=2 -DMOZ_DLL_SUFFIX='".dll"' -DA11Y_LOG=1 -DEXPOSE_INTL_API=1 -DENABLE_INTL_API=1 -DMOZ_STATIC_JS=1 -DNO_NSPR_10_SUPPORT=1 -DAB_CD=en-US '/home/ricol03/Arctic-Fox/build/application.ini' -o '../dist/bin/application.ini'
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/mozglue/build'
+ 0:02.65 gmake[5]: Nothing to be done for 'export'.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/mozglue/build'
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config/external/sqlite'
+ 0:02.65 gmake[5]: Nothing to be done for 'export'.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config/external/sqlite'
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/xpcom/xpidl'
+ 0:02.65 gmake[6]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/xpcom/idl-parser/xpidl'
+ 0:02.65 ../../../config/nsinstall -R -m 644 '/home/ricol03/Arctic-Fox/other-licenses/ply/ply/__init__.py' '../../../dist/sdk/bin/ply'
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/libjpeg'
+ 0:02.65 gmake[5]: Nothing to be done for 'export'.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/libjpeg'
+ 0:02.65 ../../../config/nsinstall -R -m 644 '/home/ricol03/Arctic-Fox/other-licenses/ply/ply/lex.py' '../../../dist/sdk/bin/ply'
+ 0:02.65 ../../../config/nsinstall -R -m 644 '/home/ricol03/Arctic-Fox/other-licenses/ply/ply/yacc.py' '../../../dist/sdk/bin/ply'
+ 0:02.65 ../../../config/nsinstall -R -m 644 '/home/ricol03/Arctic-Fox/xpcom/idl-parser/xpidl/header.py' '../../../dist/sdk/bin'
+ 0:02.65 ../../../config/nsinstall -R -m 644 '/home/ricol03/Arctic-Fox/xpcom/idl-parser/xpidl/typelib.py' '../../../dist/sdk/bin'
+ 0:02.65 ../../../config/nsinstall -R -m 644 '/home/ricol03/Arctic-Fox/xpcom/idl-parser/xpidl/xpidl.py' '../../../dist/sdk/bin'
+ 0:02.65 ../../../config/nsinstall -R -m 644 '../../../xpcom/idl-parser/xpidllex.py' '../../../dist/sdk/bin'
+ 0:02.65 ../../../config/nsinstall -R -m 644 '../../../xpcom/idl-parser/xpidlyacc.py' '../../../dist/sdk/bin'
+ 0:02.65 gmake[6]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/xpcom/idl-parser/xpidl'
+ 0:02.65 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.process_install_manifest ../../dist/idl ../../_build_manifests/install/dist_idl
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/openmax_dl/dl'
+ 0:02.65 gmake[5]: Nothing to be done for 'export'.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/openmax_dl/dl'
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/libvpx'
+ 0:02.65 gmake[5]: Nothing to be done for 'export'.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/libvpx'
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/kiss_fft'
+ 0:02.65 gmake[5]: Nothing to be done for 'export'.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/kiss_fft'
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/libopus'
+ 0:02.65 gmake[5]: Nothing to be done for 'export'.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/libopus'
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/libtheora'
+ 0:02.65 gmake[5]: Nothing to be done for 'export'.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/media/libtheora'
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config/external/nss'
+ 0:02.65 gmake[5]: warning: jobserver unavailable: using -j1.  Add '+' to parent make rule.
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config/external/ffi'
+ 0:02.65 gmake[5]: Nothing to be done for 'export'.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config/external/ffi'
+ 0:02.65 /home/ricol03/Arctic-Fox/config/rules.mk:833: *** multiple target patterns.  Stop.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config/external/nss'
+ 0:02.65 gmake[4]: *** [/home/ricol03/Arctic-Fox/config/recurse.mk:79: config/external/nss/export] Error 2
+ 0:02.65 gmake[4]: *** Waiting for unfinished jobs....
+ 0:02.65 gmake[5]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config/external/icu'
+ 0:02.65 gmake[5]: Nothing to be done for 'export'.
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config/external/icu'
+ 0:02.65 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python /home/ricol03/Arctic-Fox/build/appini_header.py ../dist/bin/application.ini > application.ini.h
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/build'
+ 0:02.65 Elapsed: 0.03s; From ../../dist/idl: Kept 1102 existing; Added/updated 0; Removed 0 files and 0 directories.
+ 0:02.65 gmake[6]: Entering directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config/makefiles/xpidl'
+ 0:02.65 mkdir -p '../../../dist/include/'
+ 0:02.65 mkdir -p '../../../dist/bin/browser/components/'
+ 0:02.65 mkdir -p '../../../dist/bin/components/'
+ 0:02.65 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.buildlist ../../../dist/bin/browser/chrome.manifest 'manifest components/interfaces.manifest'
+ 0:02.65 /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/_virtualenv/bin/python -m mozbuild.action.buildlist ../../../dist/bin/chrome.manifest 'manifest components/interfaces.manifest'
+ 0:02.65 gmake[6]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/config/makefiles/xpidl'
+ 0:02.65 gmake[5]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/xpcom/xpidl'
+ 0:02.65 gmake[4]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox'
+ 0:02.65 gmake[3]: *** [/home/ricol03/Arctic-Fox/config/recurse.mk:33: export] Error 2
+ 0:02.65 gmake[3]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox'
+ 0:02.65 gmake[2]: *** [/home/ricol03/Arctic-Fox/config/rules.mk:557: default] Error 2
+ 0:02.65 gmake[2]: Leaving directory '/home/ricol03/Arctic-Fox/obj-armv7-arctic-fox'
+ 0:02.65 gmake[1]: *** [/home/ricol03/Arctic-Fox/client.mk:397: realbuild] Error 2
+ 0:02.65 gmake[1]: Leaving directory '/home/ricol03/Arctic-Fox'
+ 0:02.65 gmake: *** [client.mk:171: build] Error 2
+ 0:02.69 911 compiler warnings present.

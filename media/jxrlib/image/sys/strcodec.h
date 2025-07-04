@@ -27,6 +27,25 @@
 //*@@@---@@@@******************************************************************
 #pragma once
 
+#include <stdint.h>
+
+#ifndef UINTPTR_T
+typedef uintptr_t UINTPTR_T;
+#endif
+
+#ifndef INTPTR_T
+typedef intptr_t INTPTR_T;
+#endif
+
+#ifndef PACKETLENGTH
+#define PACKETLENGTH 512  // or correct value from the codec spec
+#endif
+
+#ifndef _WIN32
+typedef char TCHAR;  // or wchar_t depending on Unicode use
+#endif
+
+
 #include <stddef.h>
 
 #include "windowsmediaphoto.h"
@@ -57,6 +76,7 @@
 
 //================================================================
 #ifdef WIN32
+    #define UNDER_CE
     #ifdef UNDER_CE  // WIN32 seems to be defined always in VS2005 for ARM platform
         #define PLATFORM_WCE
         #include "arm.h"

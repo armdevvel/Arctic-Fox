@@ -2806,7 +2806,7 @@ _cairo_d2d_copy_surface(cairo_d2d_surface_t *dst,
 	cairo_rectangle_int_t transformed_rect = { area_to_copy.x + translation->x,
 						   area_to_copy.y + translation->y,
 						   area_to_copy.width, area_to_copy.height };
-	cairo_rectangle_int_t surface_rect = { 0, 0, srcDesc.Width, srcDesc.Height };
+	cairo_rectangle_int_t surface_rect = { 0, 0, static_cast<int>(srcDesc.Width), static_cast<int>(srcDesc.Height) };
 
 
 	if (!_cairo_rectangle_contains(&surface_rect, &transformed_rect)) {
@@ -3021,8 +3021,8 @@ _cairo_d2d_try_fastblit(cairo_d2d_surface_t *dst,
 
 	// Areas outside of the surface do not matter.
 	cairo_rectangle_int_t surface_rect = { 0, 0,
-					       dst->rt->GetPixelSize().width,
-					       dst->rt->GetPixelSize().height };
+					       static_cast<int>(dst->rt->GetPixelSize().width),
+					       static_cast<int>(dst->rt->GetPixelSize().height) };
 	cairo_region_intersect_rectangle(region, &surface_rect);
     }
 

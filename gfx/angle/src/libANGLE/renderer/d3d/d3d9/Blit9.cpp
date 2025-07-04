@@ -548,7 +548,7 @@ gl::Error Blit9::copySurfaceToTexture(IDirect3DSurface9 *surface, const RECT &so
     textureSurface->GetDesc(&destDesc);
 
     RECT subsetSourceRect = sourceRect;
-    RECT subsetDestRect = { 0, 0, destDesc.Width, destDesc.Height };
+    RECT subsetDestRect = { 0, 0, static_cast<LONG>(destDesc.Width), static_cast<LONG>(destDesc.Height) };
     if (sourceRect.left < 0) {
         LONG diff = 0 - sourceRect.left;
         ASSERT(diff > 0);

@@ -13,10 +13,20 @@
 #include "mozilla/layers/D3D11ShareHandleImage.h"
 #include "mozilla/layers/ImageBridgeChild.h"
 #include "mozilla/Preferences.h"
-#include "mfapi.h"
+//#include "mfapi2.h"
 #include "MFTDecoder.h"
 #include "DriverCrashGuard.h"
 #include "nsPrintfCString.h"
+
+#include <mfapi2.h>
+#include <mfcaptureengine.h>
+#include <mfd3d12.h>
+#include <mfidl2.h>
+#include <mfmediacapture.h>
+#include <mfreadwrite2.h>
+#include <propsys2.h>
+
+EXTERN_GUID(CLSID_VideoProcessorMFT, 0x88753b26, 0x5b24, 0x49bd, 0xb2, 0xe7, 0xc, 0x44, 0x5c, 0x78, 0xc9, 0x82);
 
 const GUID MF_XVP_PLAYBACK_MODE =
 {

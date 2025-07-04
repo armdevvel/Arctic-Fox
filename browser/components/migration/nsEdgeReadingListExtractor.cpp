@@ -32,6 +32,157 @@ nsEdgeReadingListExtractor::Extract(const nsAString& aDBPath, nsIArray** aItems)
   nsresult rv = NS_OK;
   *aItems = nullptr;
 
+  // Variables that don't have constructors or are POD types
+  JET_ERR err = JET_errSuccess;
+  bool instanceCreated = false, sessionCreated = false, dbOpened = false, tableOpened = false;
+
+  JET_INSTANCE instance = 0;
+  JET_SESID sesid = 0;
+  JET_DBID dbid = 0;
+  JET_TABLEID tableid = 0;
+
+  char16_t* dbPath = ToNewUnicode(aDBPath);
+
+CloseDB:; // Label here before any variables with constructors
+
+  {
+    // Variables with constructors must be declared *after* the CloseDB label
+    nsCOMPtr<nsIMutableArray> items = do_CreateInstance(NS_ARRAY_CONTRACTID);
+
+    // If allocation failed, bail out early
+    if (!items) {
+      rv = NS_ERROR_OUT_OF_MEMORY;
+      goto Cleanup;
+    }
+
+    unsigned long pageSize;
+
+    // Check for the right page size and initialize with that
+    err = JetGetDatabaseFileInfoW(reinterpret_cast<const WCHAR*>(dbPath), &pageSize, sizeof(pageSize), JET_DbInfoPageSize);
+    NS_HANDLE_JET_ERROR(err)
+
+    err = JetSetSystemParameter(&instance, NULL, JET_paramDatabasePageSize, pageSize, NULL);
+    NS_HANDLE_JET_ERROR(err)
+
+    // Turn off recovery
+    err = JetSetSystemParameter(&instance, NULL, JET_paramRecovery, NULL, "Off");
+    NS_HANDLE_JET_ERROR(err)
+
+    // Start our session:
+    err = JetCreateInstance(&instance, "edge_readinglist_migration");
+    NS_HANDLE_JET_ERROR(err)
+    instanceCreated = true;
+
+    err = JetInit(&instance);
+    NS_HANDLE_JET_ERROR(err)
+    err = JetBeginSession(instance, &sesid, 0, 0);
+    NS_HANDLE_JET_ERROR(err)
+    sessionCreated = true;
+
+    // Open the DB read-only
+    err = JetAttachDatabaseW(sesid, reinterpret_cast<const WCHAR*>(dbPath), JET_bitDbReadOnly);
+    NS_HANDLE_JET_ERROR(err)
+    dbOpened = true;
+
+    err = JetOpenDatabaseW(sesid, reinterpret_cast<const WCHAR*>(dbPath), NULL, &dbid, JET_bitDbReadOnly);
+    NS_HANDLE_JET_ERROR(err)
+
+    // Open readinglist table
+    err = JetOpenTable(sesid, dbid, "ReadingList", NULL, 0, JET_bitTableReadOnly, &tableid);
+    NS_HANDLE_JET_ERROR(err)
+    tableOpened = true;
+
+    JET_COLUMNDEF urlColumnInfo = { 0 };
+    JET_COLUMNDEF titleColumnInfo = { 0 };
+    JET_COLUMNDEF addedDateColumnInfo = { 0 };
+
+    err = JetGetColumnInfo(sesid, dbid, "ReadingList", "URL", &urlColumnInfo, sizeof(urlColumnInfo), JET_ColInfo);
+    NS_HANDLE_JET_ERROR(err)
+
+    err = JetGetColumnInfo(sesid, dbid, "ReadingList", "Title", &titleColumnInfo, sizeof(titleColumnInfo), JET_ColInfo);
+    NS_HANDLE_JET_ERROR(err)
+
+    err = JetGetColumnInfo(sesid, dbid, "ReadingList", "AddedDate", &addedDateColumnInfo, sizeof(addedDateColumnInfo), JET_ColInfo);
+    NS_HANDLE_JET_ERROR(err)
+
+    // Verify column types
+    if (urlColumnInfo.coltyp != JET_coltypLongText ||
+        titleColumnInfo.coltyp != JET_coltypLongText ||
+        addedDateColumnInfo.coltyp != JET_coltypLongLong) {
+      rv = NS_ERROR_NOT_IMPLEMENTED;
+      goto Cleanup;
+    }
+
+    JET_COLUMNID urlColumnId = urlColumnInfo.columnid;
+    JET_COLUMNID titleColumnId = titleColumnInfo.columnid;
+    JET_COLUMNID addedDateColumnId = addedDateColumnInfo.columnid;
+
+    err = JetMove(sesid, tableid, JET_MoveFirst, 0);
+    if (err == JET_errNoCurrentRecord) {
+      items.forget(aItems);
+      goto Cleanup;
+    }
+    NS_HANDLE_JET_ERROR(err)
+
+    FILETIME addedDate;
+    wchar_t urlBuffer[MAX_URL_LENGTH] = { 0 };
+    wchar_t titleBuffer[MAX_TITLE_LENGTH] = { 0 };
+
+    do {
+      err = JetRetrieveColumn(sesid, tableid, urlColumnId, &urlBuffer, sizeof(urlBuffer), NULL, 0, NULL);
+      NS_HANDLE_JET_ERROR(err)
+
+      err = JetRetrieveColumn(sesid, tableid, titleColumnId, &titleBuffer, sizeof(titleBuffer), NULL, 0, NULL);
+      NS_HANDLE_JET_ERROR(err)
+
+      err = JetRetrieveColumn(sesid, tableid, addedDateColumnId, &addedDate, sizeof(addedDate), NULL, 0, NULL);
+      NS_HANDLE_JET_ERROR(err)
+
+      nsCOMPtr<nsIWritablePropertyBag2> pbag = do_CreateInstance("@mozilla.org/hash-property-bag;1");
+      bool dateIsValid;
+      PRTime prAddedDate = WinMigrationFileTimeToPRTime(&addedDate, &dateIsValid);
+
+      nsDependentString url(urlBuffer);
+      nsDependentString title(titleBuffer);
+
+      pbag->SetPropertyAsAString(NS_LITERAL_STRING("uri"), url);
+      pbag->SetPropertyAsAString(NS_LITERAL_STRING("title"), title);
+
+      if (dateIsValid) {
+        pbag->SetPropertyAsInt64(NS_LITERAL_STRING("time"), prAddedDate);
+      }
+
+      items->AppendElement(pbag, false);
+
+      memset(urlBuffer, 0, sizeof(urlBuffer));
+      memset(titleBuffer, 0, sizeof(titleBuffer));
+    } while (JET_errSuccess == JetMove(sesid, tableid, JET_MoveNext, 0));
+
+    items.forget(aItems);
+  }
+
+Cleanup:
+  if (tableOpened)
+    JetCloseTable(sesid, tableid);
+  if (dbOpened)
+    JetCloseDatabase(sesid, dbid, 0);
+  if (sessionCreated)
+    JetEndSession(sesid, 0);
+  if (instanceCreated)
+    JetTerm(instance);
+
+  free(dbPath);
+
+  return rv;
+}
+
+
+/*NS_IMETHODIMP
+nsEdgeReadingListExtractor::Extract(const nsAString& aDBPath, nsIArray** aItems)
+{
+  nsresult rv = NS_OK;
+  *aItems = nullptr;
+
   JET_ERR err;
   JET_INSTANCE instance;
   JET_SESID sesid;
@@ -54,7 +205,7 @@ nsEdgeReadingListExtractor::Extract(const nsAString& aDBPath, nsIArray** aItems)
 
   // Check for the right page size and initialize with that
   unsigned long pageSize;
-  err = JetGetDatabaseFileInfoW(dbPath, &pageSize, sizeof(pageSize), JET_DbInfoPageSize);
+  err = JetGetDatabaseFileInfoW(reinterpret_cast<const WCHAR*>(dbPath), &pageSize, sizeof(pageSize), JET_DbInfoPageSize);
   NS_HANDLE_JET_ERROR(err)
   err = JetSetSystemParameter(&instance, NULL, JET_paramDatabasePageSize, pageSize, NULL);
   NS_HANDLE_JET_ERROR(err)
@@ -77,10 +228,10 @@ nsEdgeReadingListExtractor::Extract(const nsAString& aDBPath, nsIArray** aItems)
   sessionCreated = true;
 
   // Actually open the DB, and make sure to do so readonly:
-  err = JetAttachDatabaseW(sesid, dbPath, JET_bitDbReadOnly);
+  err = JetAttachDatabaseW(sesid, reinterpret_cast<const WCHAR*>(dbPath), JET_bitDbReadOnly);
   NS_HANDLE_JET_ERROR(err)
   dbOpened = true;
-  err = JetOpenDatabaseW(sesid, dbPath, NULL, &dbid, JET_bitDbReadOnly);
+  err = JetOpenDatabaseW(sesid, reinterpret_cast<const WCHAR*>(dbPath), NULL, &dbid, JET_bitDbReadOnly);
   NS_HANDLE_JET_ERROR(err)
 
   // Open the readinglist table and get information on the columns we are interested in:
@@ -199,5 +350,5 @@ nsEdgeReadingListExtractor::ConvertJETError(const JET_ERR &aError)
     default:
       return NS_ERROR_FAILURE;
   }
-}
+}*/
 

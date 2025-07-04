@@ -13,7 +13,7 @@
 #ifdef _MSC_VER
 #include "vpx_config_x86-win32-vs12.h"
 #else
-#include "vpx_config_x86-win32-gcc.h"
+#include "vpx_config_armv7-win64-gcc.h"
 #endif
 
 #elif defined(__APPLE__) && defined(__x86_64__)

@@ -7,6 +7,8 @@
 #ifndef GLCONTEXT_H_
 #define GLCONTEXT_H_
 
+#include "mozilla/Vector.h"
+
 #include <bitset>
 #include <ctype.h>
 #include <stdint.h>
@@ -629,7 +631,7 @@ public:
     class LocalErrorScope;
 
 private:
-    std::stack<const LocalErrorScope*> mLocalErrorScopeStack;
+    mozilla::Vector<LocalErrorScope*> mLocalErrorScopeStack;
 
 public:
     class LocalErrorScope {
@@ -642,7 +644,7 @@ public:
             : mGL(gl)
             , mHasBeenChecked(false)
         {
-            mGL.mLocalErrorScopeStack.push(this);
+            mGL.mLocalErrorScopeStack.append(this);
 
             mGL.FlushErrors();
 
@@ -666,8 +668,8 @@ public:
 
             MOZ_ASSERT(mGL.fGetError() == LOCAL_GL_NO_ERROR);
 
-            MOZ_ASSERT(mGL.mLocalErrorScopeStack.top() == this);
-            mGL.mLocalErrorScopeStack.pop();
+            MOZ_ASSERT(mGL.mLocalErrorScopeStack.back() == this);
+            mGL.mLocalErrorScopeStack.popBack();
 
             mGL.mTopError = mOldTop;
         }
@@ -751,7 +753,7 @@ private:
             }
 
             if (err != LOCAL_GL_NO_ERROR &&
-                !mLocalErrorScopeStack.size())
+                !mLocalErrorScopeStack.length())
             {
                 printf_stderr("[gl:%p] %s: Generated unexpected %s error."
                               " (0x%04x)\n", this, funcName,

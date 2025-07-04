@@ -28,11 +28,11 @@
 .section .note.GNU-stack,"",%progbits /* mark stack as non-executable */
 #endif
 
-.text
-.fpu neon
-.arch armv7a
-.object_arch armv4
-.arm
+#.text
+#.fpu neon
+#.arch armv7a
+#.object_arch armv4
+#.arm
 
 
 #define RESPECT_STRICT_ALIGNMENT 1

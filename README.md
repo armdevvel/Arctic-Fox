@@ -2,6 +2,18 @@
 
 This is a ***PROOF OF CONCEPT***. It DOES not work right now. I **am not**, and ***will not*** promise a working date, when I will update it, etc. It's open so anybody can contribute. Currently, I'm uploading user generated files such as configure for the simple reason that I don't know autoconf well enough to make the needed changes in the right files. To get on the path of building: copy `mozcfg-armv7-w64-mingw32` to `.mozconfig`, then run `./mach build`. It WILL error out. Also, this ONLY targets armv7-w64-mingw32. Other platforms are NOT guaranteed to continue to build! The point of this being in its own repository is so it builds for the specific target!
 
+Currently it reaches to a point of the compilation where armv7-w64-mingw32-ld is not found, the output is something like this:
+
+```16:24.82 ld.lld: error: could not open 'armv7-w64-mingw32-ld': No such file or directory
+16:24.82 clang-14: error: linker command failed with exit code 1 (use -v to see invocation)
+16:24.82 gmake[7]: *** [../../../coreconf/rules.mk:291: /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/security/nss/lib/ckfw/builtins/nssckbi.dll] Error 1
+16:24.82 gmake[6]: *** [../../coreconf/rules.mk:78: libs] Error 2
+16:24.82 gmake[5]: *** [Makefile:464: libs-nss/lib/ckfw] Error 2
+16:24.82 gmake[4]: *** [/home/ricol03/Arctic-Fox/config/recurse.mk:71: config/external/nss/target] Error 2
+16:24.82 gmake[4]: *** Waiting for unfinished jobs....```
+
+Even though the executable is on the expected folder, the $PATH variable is correct, and even trying different ld executables doesn't seem to make it carry on. To get the exact environment that was used to compile this, make sure to get MXE, and run the `make cc`, `make mingw-contrib` and `make icu4c` commands from the MXE's root directory. You should be good to go.
+
 # Original README
 ## Arctic Fox Web Browser
 
