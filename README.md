@@ -4,13 +4,15 @@ This is a ***PROOF OF CONCEPT***. It DOES not work right now. I **am not**, and 
 
 Currently it reaches to a point of the compilation where armv7-w64-mingw32-ld is not found, the output is something like this:
 
-```16:24.82 ld.lld: error: could not open 'armv7-w64-mingw32-ld': No such file or directory
+```
+16:24.82 ld.lld: error: could not open 'armv7-w64-mingw32-ld': No such file or directory
 16:24.82 clang-14: error: linker command failed with exit code 1 (use -v to see invocation)
 16:24.82 gmake[7]: *** [../../../coreconf/rules.mk:291: /home/ricol03/Arctic-Fox/obj-armv7-arctic-fox/security/nss/lib/ckfw/builtins/nssckbi.dll] Error 1
 16:24.82 gmake[6]: *** [../../coreconf/rules.mk:78: libs] Error 2
 16:24.82 gmake[5]: *** [Makefile:464: libs-nss/lib/ckfw] Error 2
 16:24.82 gmake[4]: *** [/home/ricol03/Arctic-Fox/config/recurse.mk:71: config/external/nss/target] Error 2
-16:24.82 gmake[4]: *** Waiting for unfinished jobs....```
+16:24.82 gmake[4]: *** Waiting for unfinished jobs....
+```
 
 Even though the executable is on the expected folder, the $PATH variable is correct, and even trying different ld executables doesn't seem to make it carry on. To get the exact environment that was used to compile this, make sure to get MXE, and run the `make cc`, `make mingw-contrib` and `make icu4c` commands from the MXE's root directory. You should be good to go.
 
